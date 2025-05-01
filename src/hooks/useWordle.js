@@ -35,6 +35,7 @@ export const useWordle = () => {
             const colored_guess = decorate_guess()
             setTurn(x => x + 1)
             setGuesses([...deep_copy(guesses), colored_guess])
+            setHistory([...history, currentGuess])
 
 
         }
@@ -65,7 +66,7 @@ export const useWordle = () => {
             freq_solution.set(Solution[i], freq_solution.get(Solution[i]) + 1);
         }
 
-        for (var i=0; i<currentGuess.length; i++){
+        for ( var i=0; i<currentGuess.length; i++){
             if (currentGuess[i] === Solution[i]){
                 freq_solution.set(Solution[i], freq_solution.get(Solution[i]) - 1);
             }
@@ -76,7 +77,7 @@ export const useWordle = () => {
             })
         }
 
-        for (var i=0; i<currentGuess.length; i++){
+        for ( var i=0; i<currentGuess.length; i++){
             if (currentGuess[i] !== Solution[i] && freq_solution.get(currentGuess[i]) > 0){
                 colored_guess[i].color = "gold"
                 freq_solution.set(Solution[i], freq_solution.get(currentGuess[i]) - 1);
