@@ -36,6 +36,7 @@ export const useWordle = () => {
             setTurn(x => x + 1)
             setGuesses([...deep_copy(guesses), colored_guess])
             setHistory([...history, currentGuess])
+            setCurrentGuess("")
 
 
         }
