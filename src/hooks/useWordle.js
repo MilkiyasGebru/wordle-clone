@@ -14,7 +14,7 @@ export const useWordle = () => {
     const [history, setHistory] = useState([]);
     const [isCorrect, setIsCorrect] = useState(false);
 
-    const handleKeyUp = ({key}) => {
+    const handleKeyUp = ({key}) =>  {
         if (key === "Enter") {
 
             if (currentGuess.length < 5){
@@ -33,11 +33,7 @@ export const useWordle = () => {
                 return
             }
             const colored_guess = decorate_guess()
-            setTurn(x => x + 1)
-            setGuesses([...deep_copy(guesses), colored_guess])
-            setHistory([...history, currentGuess])
-            setCurrentGuess("")
-
+            addNewGuess(colored_guess)
 
         }
 
@@ -87,6 +83,13 @@ export const useWordle = () => {
 
         return colored_guess
 
+    }
+
+    const addNewGuess = (colored_guess)=>{
+        setTurn(x => x + 1)
+        setGuesses([...deep_copy(guesses), colored_guess])
+        setHistory([...history, currentGuess])
+        setCurrentGuess("")
     }
 
     useEffect(() => {
