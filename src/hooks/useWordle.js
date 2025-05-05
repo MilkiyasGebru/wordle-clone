@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 
 const deep_copy = (guesses)=>{
-    return guesses.map((guess)=>{
+    return guesses.map(guess =>{
         if (guess){
-            return {...guess}
+            return guess.map(g=>({...g}))
         }
         return null
     })
@@ -73,17 +73,17 @@ export const useWordle = () => {
 
             colored_guess.push({
                 element: currentGuess[i],
-                color: currentGuess[i] === Solution[i]? "green": "grey"
+                color: currentGuess[i] === Solution[i]? "green": "gray"
             })
         }
 
         for ( var i=0; i<currentGuess.length; i++){
             if (currentGuess[i] !== Solution[i] && freq_solution.get(currentGuess[i]) > 0){
                 colored_guess[i].color = "gold"
-                freq_solution.set(Solution[i], freq_solution.get(currentGuess[i]) - 1);
+                freq_solution.set(currentGuess[i], freq_solution.get(currentGuess[i]) - 1);
             }
         }
-
+        console.log(colored_guess)
         return colored_guess
 
     }
