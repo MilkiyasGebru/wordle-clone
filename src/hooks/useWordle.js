@@ -10,12 +10,14 @@ const deep_copy = (guesses)=>{
 }
 
 export const useWordle = () => {
-    const Solution = "aabbc"
+    const Solution = "AABBC"
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6).fill(null)]);
     const [history, setHistory] = useState([]);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [yellowCharacters, setYellowCharacters] = useState(new Set());
+    const [greenCharacters, setGreenCharacters] = useState(new Set());
 
     const handleKeyUp = ({key}) =>  {
         if (key === "Enter") {
@@ -56,6 +58,9 @@ export const useWordle = () => {
 
     const decorate_guess = ()=>{
 
+        const copied_yellow_characters = new Set(yellowCharacters)
+        const copied_green_characters = new Set(greenCharacters)
+
         const freq_solution = new Map();
         const colored_guess = []
 
@@ -69,6 +74,8 @@ export const useWordle = () => {
         for ( var i=0; i<currentGuess.length; i++){
             if (currentGuess[i] === Solution[i]){
                 freq_solution.set(Solution[i], freq_solution.get(Solution[i]) - 1);
+                copied_green_characters.add(currentGuess[i])
+                copied_yellow_characters.delete(currentGuess[i])
             }
 
             colored_guess.push({
@@ -81,9 +88,11 @@ export const useWordle = () => {
             if (currentGuess[i] !== Solution[i] && freq_solution.get(currentGuess[i]) > 0){
                 colored_guess[i].color = "gold"
                 freq_solution.set(currentGuess[i], freq_solution.get(currentGuess[i]) - 1);
+                copied_yellow_characters.add(currentGuess[i])
             }
         }
-        console.log(colored_guess)
+        setGreenCharacters(copied_green_characters)
+        setYellowCharacters(copied_yellow_characters)
         return colored_guess
 
     }
@@ -109,7 +118,9 @@ export const useWordle = () => {
         currentGuess,
         guesses,
         isCorrect,
-        handleKeyUp
+        handleKeyUp,
+        yellowCharacters,
+        greenCharacters
     }
 
 }
