@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+    --animate-flip: flip 0.35s ease-in-out forwards;
+    @keyframes flip {
+        0% {
+            transform: rotateX(0deg);
+            background-color: white;
+        }
+        45% {
+            transform: rotateX(90deg);
+            background-color: white;
+        }
+        55% {
+            transform: rotateX(90deg);
+            background-color: var(--background-color);
+            color: black;
+        }
+        100% {
+            transform: rotateX(0deg);
+            background-color: var(--background-color);
+            color: black;
+        }
+    }
+}
