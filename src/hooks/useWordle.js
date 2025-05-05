@@ -1,16 +1,19 @@
 import {useEffect, useState} from "react";
 
 const deep_copy = (guesses)=>{
-    return guesses.map(guess => ({
-        ...guess,
-    }))
+    return guesses.map((guess)=>{
+        if (guess){
+            return {...guess}
+        }
+        return null
+    })
 }
 
 export const useWordle = () => {
     const Solution = "aabbc"
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
-    const [guesses, setGuesses] = useState([]);
+    const [guesses, setGuesses] = useState([...Array(6).fill(null)]);
     const [history, setHistory] = useState([]);
     const [isCorrect, setIsCorrect] = useState(false);
 
@@ -87,7 +90,11 @@ export const useWordle = () => {
 
     const addNewGuess = (colored_guess)=>{
         setTurn(x => x + 1)
-        setGuesses([...deep_copy(guesses), colored_guess])
+
+        const copied_guesses = deep_copy(guesses)
+        copied_guesses[turn] = colored_guess
+        setGuesses(copied_guesses)
+
         setHistory([...history, currentGuess])
         setCurrentGuess("")
         if (currentGuess === Solution){
@@ -95,9 +102,7 @@ export const useWordle = () => {
         }
     }
 
-    useEffect(() => {
-        console.log("current guess has changed", currentGuess)
-    }, [currentGuess])
+
 
     return {
         turn,
