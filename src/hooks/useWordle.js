@@ -90,6 +90,9 @@ export const useWordle = () => {
         setGuesses([...deep_copy(guesses), colored_guess])
         setHistory([...history, currentGuess])
         setCurrentGuess("")
+        if (currentGuess === Solution){
+            setIsCorrect(true)
+        }
     }
 
     useEffect(() => {
