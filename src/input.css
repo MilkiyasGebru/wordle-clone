@@ -7,20 +7,22 @@
         0% {
             transform: rotateX(0deg);
             background-color: white;
+            color:black;
         }
         45% {
             transform: rotateX(90deg);
             background-color: white;
+            color:black;
         }
         55% {
             transform: rotateX(90deg);
             background-color: var(--background-color);
-            color: black;
+            color: white;
         }
         100% {
             transform: rotateX(0deg);
             background-color: var(--background-color);
-            color: black;
+            color: white;
         }
     }
 
