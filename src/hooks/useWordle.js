@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const deep_copy = (guesses)=>{
     return guesses.map(guess =>{
@@ -18,12 +18,21 @@ export const useWordle = () => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [yellowCharacters, setYellowCharacters] = useState(new Set());
     const [greenCharacters, setGreenCharacters] = useState(new Set());
+    const current_ref = useRef(null);
+
 
     const handleKeyUp = ({key}) =>  {
         if (key === "Enter") {
 
             if (currentGuess.length < 5){
-                console.log("Guess should be 5")
+                if (current_ref.current){
+                    const element = current_ref.current;
+                    element.classList.add("vibrate")
+                    setTimeout(()=>{
+                        element.classList.remove("vibrate")
+                    },4000)
+                }
+
                 return
             }
 
@@ -35,6 +44,13 @@ export const useWordle = () => {
 
             if (history.includes(currentGuess)) {
                 console.log("Word has already been guessed")
+                if (current_ref.current){
+                    const element = current_ref.current;
+                    element.classList.add("vibrate")
+                    setTimeout(()=>{
+                        element.classList.remove("vibrate")
+                    },4000)
+                }
                 return
             }
             const colored_guess = decorate_guess()
@@ -120,7 +136,8 @@ export const useWordle = () => {
         isCorrect,
         handleKeyUp,
         yellowCharacters,
-        greenCharacters
+        greenCharacters,
+        current_ref
     }
 
 }
