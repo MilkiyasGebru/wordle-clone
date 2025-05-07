@@ -1,3 +1,4 @@
+import {forwardRef} from "react";
 
 const styles = {
     gray: {'--background-color': ' #afb19f'},
@@ -5,11 +6,11 @@ const styles = {
     green: {'--background-color': '#33ff39'},
 }
 
-export default function RowGrid({guess, current_guess}) {
+const RowGrid = forwardRef(({guess, current_guess},ref) => {
 
     if (guess) return (
 
-        <div className="flex gap-2">
+        <div className="flex gap-2" >
             {guess.map((element,index)=>(
                 <div key={index} style={{...styles[element.color],animationDelay:`${350*index}ms`}} className={`w-[60px] h-[60px]  rounded-md flex justify-center items-center uppercase animate-flip text-white`}>
                     {element.element}
@@ -22,7 +23,7 @@ export default function RowGrid({guess, current_guess}) {
 
         let letters = current_guess.split("")
         return (
-            <div className="flex gap-2">
+            <div className="flex gap-2" ref={ref}>
                 {letters.map((letter, index)=>(
                     <div key={index}
                          className={`w-[60px] h-[60px] border border-gray-600 rounded-md flex justify-center items-center uppercase animate-bounce-cell`}>
@@ -49,4 +50,6 @@ export default function RowGrid({guess, current_guess}) {
             })}
         </div>
     )
-}
+})
+
+export default RowGrid;
