@@ -36,7 +36,7 @@ export default function Wordle(){
         <div className="flex flex-col gap-4 font-semibold">
             <Navbar />
             <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} current_ref={current_ref} />
-            <Keyboard yellowCharacters={yellowCharacters} greenCharacters={greenCharacters} />
+            <Keyboard yellowCharacters={yellowCharacters} greenCharacters={greenCharacters} handleKeyUp={handleKeyUp} />
             {showModal && <Modal turn={turn} isCorrect={isCorrect}/>}
 
         </div>
