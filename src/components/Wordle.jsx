@@ -1,14 +1,13 @@
 import useWordle from "../hooks/useWordle";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Grid from "./Grid";
 import Keyboard from "./Keyboard";
 import Modal from "./Modal";
 import Navbar from "./Navbar";
 
 export default function Wordle(){
-    const {currentGuess, handleKeyUp, turn, isCorrect,guesses, greenCharacters, yellowCharacters} = useWordle()
+    const {currentGuess, handleKeyUp, turn, isCorrect,guesses, greenCharacters, yellowCharacters, current_ref} = useWordle()
     const [showModal, setShowModal] = useState(false);
-
     useEffect(() => {
         window.addEventListener('keyup', handleKeyUp)
 
@@ -36,7 +35,7 @@ export default function Wordle(){
     return (
         <div className="flex flex-col gap-4 font-semibold">
             <Navbar />
-            <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
+            <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} current_ref={current_ref} />
             <Keyboard yellowCharacters={yellowCharacters} greenCharacters={greenCharacters} />
             {showModal && <Modal turn={turn} isCorrect={isCorrect}/>}
 
