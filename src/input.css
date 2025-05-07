@@ -2,7 +2,6 @@
 
 @theme {
     --animate-flip: flip 0.35s ease-in-out forwards;
-    --animate-bounce-cell: bounce-cell 0.2s ease-in-out forwards;
     @keyframes flip {
         0% {
             transform: rotateX(0deg);
@@ -26,15 +25,45 @@
         }
     }
 
-    @keyframes bounce-cell {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.2);
-        }
-        100% {
-            transform: scale(1);
-        }
+
     }
+
+
+
+
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(30px); }
+    20% { transform: translateX(0px); }
+    30% { transform: translateX(-30px); }
+    40% { transform: translateX(0px); }
+    50% { transform: translateX(30px); }
+    60% { transform: translateX(0px); }
+    70% { transform: translateX(-30px); }
+    80% { transform: translateX(0px); }
+    90% { transform: translateX(30px); }
+    100% { transform: translateX(0); }
+}
+
+.vibrate {
+    animation: vibrate 4000ms ease-in-out forwards;
+    animation-delay: 0s;
+}
+
+
+@keyframes bounce-cell {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-bounce-cell {
+    animation: bounce-cell 200ms ease-in-out forwards;
+    animation-delay: 0s;
 }
