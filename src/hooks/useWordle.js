@@ -27,10 +27,10 @@ export const useWordle = () => {
             if (currentGuess.length < 5){
                 if (current_ref.current){
                     const element = current_ref.current;
-                    element.classList.add("vibrate")
+                    element.classList.add("vibrate-touch")
                     setTimeout(()=>{
-                        element.classList.remove("vibrate")
-                    },4000)
+                        element.classList.remove("vibrate-touch")
+                    },500)
                 }
 
                 return
