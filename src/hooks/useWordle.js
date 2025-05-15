@@ -19,6 +19,7 @@ export const useWordle = () => {
     const [yellowCharacters, setYellowCharacters] = useState(new Set());
     const [greenCharacters, setGreenCharacters] = useState(new Set());
     const current_ref = useRef(null);
+    const [error, setError] = useState(null);
 
 
     const handleKeyUp = ({key}) =>  {
@@ -33,6 +34,11 @@ export const useWordle = () => {
                     },500)
                 }
 
+                setError("Not Enough Letters");
+                setTimeout(()=>{
+                    setError(null);
+                }, 3000)
+
                 return
             }
 
@@ -46,11 +52,18 @@ export const useWordle = () => {
                 console.log("Word has already been guessed")
                 if (current_ref.current){
                     const element = current_ref.current;
-                    element.classList.add("vibrate")
+                    element.classList.add("vibrate-touch")
                     setTimeout(()=>{
-                        element.classList.remove("vibrate")
-                    },4000)
+                        element.classList.remove("vibrate-touch")
+                    },500)
                 }
+
+                setError("Already Guessed");
+                setTimeout(()=>{
+                    setError(null);
+                }, 3000)
+
+
                 return
             }
             const colored_guess = decorate_guess()
@@ -137,7 +150,8 @@ export const useWordle = () => {
         handleKeyUp,
         yellowCharacters,
         greenCharacters,
-        current_ref
+        current_ref,
+        error
     }
 
 }
