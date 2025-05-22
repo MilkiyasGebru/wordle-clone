@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import ErrorMessage from "./ErrorMessage";
 
 export default function Wordle(){
-    const {currentGuess, handleKeyUp, turn, isCorrect,guesses, greenCharacters, yellowCharacters, current_ref, error} = useWordle()
+    const {currentGuess, handleKeyUp, turn, isCorrect,guesses, greenCharacters, yellowCharacters, current_ref, errors, setErrors} = useWordle()
     const [showModal, setShowModal] = useState(false);
     useEffect(() => {
         window.addEventListener('keyup', handleKeyUp)
@@ -39,7 +39,7 @@ export default function Wordle(){
             <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} current_ref={current_ref}/>
             <Keyboard yellowCharacters={yellowCharacters} greenCharacters={greenCharacters} handleKeyUp={handleKeyUp}/>
             {showModal && <Modal turn={turn} isCorrect={isCorrect}/>}
-            {error && <ErrorMessage error={error}/>}
+            {errors && <ErrorMessage errors={errors} setErrors={setErrors}/>}
 
 
         </div>
