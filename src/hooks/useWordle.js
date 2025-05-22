@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import {v4 as uuidv4} from "uuid";
 
 const deep_copy = (guesses)=>{
     return guesses.map(guess =>{
@@ -19,7 +20,8 @@ export const useWordle = () => {
     const [yellowCharacters, setYellowCharacters] = useState(new Set());
     const [greenCharacters, setGreenCharacters] = useState(new Set());
     const current_ref = useRef(null);
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState([]);
+
 
 
     const handleKeyUp = ({key}) =>  {
@@ -34,10 +36,8 @@ export const useWordle = () => {
                     },500)
                 }
 
-                setError("Not Enough Letters");
-                setTimeout(()=>{
-                    setError(null);
-                }, 3000)
+                setErrors([...errors, "Not Enough Letters"]);
+
 
                 return
             }
@@ -57,11 +57,11 @@ export const useWordle = () => {
                         element.classList.remove("vibrate-touch")
                     },500)
                 }
+                const another_error = [...errors]
+                another_error.push("Already Guessed")
+                // setError("Already Guessed");
+                setErrors(another_error)
 
-                setError("Already Guessed");
-                setTimeout(()=>{
-                    setError(null);
-                }, 3000)
 
 
                 return
@@ -151,7 +151,8 @@ export const useWordle = () => {
         yellowCharacters,
         greenCharacters,
         current_ref,
-        error
+        errors,
+        setErrors
     }
 
 }
