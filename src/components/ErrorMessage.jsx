@@ -5,7 +5,7 @@ export default function ErrorMessage({errors, setErrors}) {
     useEffect(() => {
         const timer = setTimeout(()=>{
             setErrors(errors.slice(1));
-        },500)
+        },250)
         return ()=>{
             clearTimeout(timer)
         }
